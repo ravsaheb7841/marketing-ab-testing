@@ -1,0 +1,27 @@
+# Raw data (large; download from Kaggle, see README)
+data/marketing_AB.csv
+data/marketing_AB_clean.csv
+
+# Jupyter
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Power BI temp/cache files (keep the .pbix itself)
+*.pbi*.tmp
+.pbi/
+
+# Secrets (never commit)
+.env
