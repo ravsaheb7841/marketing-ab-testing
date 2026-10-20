@@ -2,7 +2,9 @@
 
 > **TL;DR:** An A/B test of **588,101 users** showed the ad group converted at **2.555%** vs **1.785%** for the PSA control, a **43.09% relative lift** (p = 8.5 × 10⁻¹⁴, 95% CI for the difference: 0.595 to 0.943 percentage points). The ad clearly works at driving conversions. Whether it pays off depends on real revenue and cost: under illustrative assumptions ($50 per conversion, $0.50 per user) ROI is negative, so the next step is to validate the economics and test scheduling and frequency caps.
 
-**Live dashboard:** [add Power BI / Tableau link here]  |  **Tools:** Python (pandas, statsmodels, scipy, seaborn), Power BI / Tableau, Jupyter
+**Power BI Dashboard:** [View Dashboard (.pbix)](dashboard/Marketing_AB_Test_Dashboard.pbix) | [Dashboard Preview (PDF)](dashboard/Marketing_AB_Test_Dashboard.pdf)
+
+**Tools:** Python (pandas, statsmodels, scipy, seaborn), Power BI, Jupyter
 
 ---
 
@@ -33,10 +35,10 @@ A marketing team ran an ad campaign and wants to know:
 3. **Hypothesis testing:** one-sided two-proportion z-test (H0: equal rates, H1: ad > PSA), cross-checked with a chi-square test.
 4. **Effect size:** absolute lift, relative lift and 95% confidence interval for the difference.
 5. **Power analysis:** achieved power and minimum detectable effect.
-6. **Segment analysis:** lift by day, hour and exposure bucket, with a **Bonferroni correction** because many tests were run.
+6. **Segment analysis:** lift by day, hour and exposure bucket, with a Bonferroni correction because many tests were run.
 7. **Logistic regression:** checked the ad effect after controlling for exposure, day and hour.
 8. **Business impact:** converted lift into extra conversions, revenue and ROI (assumptions stated below).
-9. **Dashboard:** summarised everything in an interactive dashboard.
+9. **Dashboard:** built an interactive Power BI dashboard and exported a PDF preview of the dashboard.
 
 ## 4. Key results
 
@@ -76,7 +78,17 @@ These are observed differences. Individual segments were tested with a Bonferron
 
 **Business impact (assumptions):** revenue per conversion = $50, cost per targeted user = $0.50. Estimated extra conversions: 4,343; incremental revenue: $217,149; estimated ROI: −23.1%. These are illustrative assumptions, not company data.
 
-## 7. Limitations
+## 7. Power BI Dashboard
+
+The interactive Power BI dashboard summarizes conversion performance, key KPIs, and trends by test group, day, hour, and ad exposure.
+
+**Dashboard files:**
+- `Marketing_AB_Test_Dashboard.pbix` — interactive Power BI dashboard.
+- `Marketing_AB_Test_Dashboard.pdf` — PDF preview exported from Power BI.
+
+Open the `.pbix` file in Power BI Desktop to explore the dashboard interactively.
+
+## 8. Limitations
 
 - **Imbalanced groups:** only 4.00% of users are in the PSA control, so the control estimate is less precise (the z-test is still valid).
 - **Exposure is not randomized:** `total_ads` is measured after assignment, so the exposure curve shows correlation, not causation.
@@ -84,26 +96,36 @@ These are observed differences. Individual segments were tested with a Bonferron
 - **Possible novelty effects**, and no information on repeat purchases or customer lifetime value.
 - **Multiple comparisons:** segment findings were corrected with Bonferroni, but remain exploratory.
 
-## 8. Project structure
+## 9. Project structure
 
 ```text
-ab-test-marketing/
-├── data/                  # raw and cleaned data (raw file not committed if large)
-├── notebooks/             # cleaning/EDA, hypothesis testing, segment analysis, dashboard prep
-├── outputs/               # charts and dashboard_data/ exports
-├── dashboard/             # .pbix / Tableau workbook and screenshots
+marketing-ab-testing/
+├── data/
+│   └── marketing_AB_clean.csv
+├── notebooks/
+│   ├── cleaning_eda.ipynb
+│   ├── hypothesis_testing.ipynb
+│   ├── segment_analysis.ipynb
+│   └── dashboard_prep.ipynb
+├── outputs/
+│   ├── lift_confidence_interval.png
+│   ├── heatmap_day_hour.png
+│   └── dashboard_data/
+├── dashboard/
+│   ├── Marketing_AB_Test_Dashboard.pbix
+│   └── Marketing_AB_Test_Dashboard.pdf
 └── README.md
 ```
 
-## 9. How to run
+## 10. How to run
 
 ```bash
 pip install pandas numpy matplotlib seaborn scipy statsmodels
 # Download marketing_AB.csv from Kaggle into data/
 # Run the notebooks in sequence: cleaning/EDA, hypothesis testing, segment analysis, dashboard prep
-# Open the dashboard file in Power BI / Tableau
+# Open the .pbix file in Power BI Desktop or view the dashboard PDF preview
 ```
 
-## 10. About me
+## 11. About me
 
 **Ravsaheb Bansode** | [LinkedIn](https://www.linkedin.com/in/ravsaheb-bansode/) | [Portfolio](https://ravsaheb-bansode-portfolio.vercel.app/) | bansoderav@gmail.com
